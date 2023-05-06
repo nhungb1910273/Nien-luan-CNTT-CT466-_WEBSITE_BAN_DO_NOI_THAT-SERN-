@@ -1,0 +1,1 @@
+export const IMG_URL = 'http://localhost:8081/assets/images';
