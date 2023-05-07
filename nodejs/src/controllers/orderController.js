@@ -84,6 +84,7 @@ let handleDeleteAllCart = async(req,res) => {
     let message = await orderService.deleteAllCart(req.body.userId);
     return res.status(200).json(message);
 }
+
 module.exports = {
     handleGetAllOrders: handleGetAllOrders,
     handleGetAllOrdersByUserId: handleGetAllOrdersByUserId,

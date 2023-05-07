@@ -21,11 +21,20 @@ let createNewUser = (data) => {
         try {
             // check email is exist?
             let checkEmail = await checkUsersEmail(data.email);
-            if(checkEmail === true){
-                resolve({
-                    errCode:2,
-                    errMessage: 'Your email is already in used, Please try another email!'
-                })
+            let checkPhone = await checkUsersPhoneNumber(data.phoneNumber)
+            if(checkEmail === true || checkPhone === true){
+                if(checkEmail === true){
+                    resolve({
+                        errCode:2,
+                        errMessage: 'Your email is already in used, Please try another email!'
+                    })
+                }
+                if(checkPhone===true){
+                    resolve({
+                        errCode:2,
+                        errMessage: 'Your phone number is already in used, Please try another phone number!'
+                    })
+                }
             }else{
                 if(data.password !== data.confirmPassword){
                     resolve({
@@ -184,6 +193,23 @@ let checkUsersEmail = (userEmail) => {
     })
 }
 
+let checkUsersPhoneNumber = (phone) => {
+    return new Promise(async(resolve, reject) => {
+        try{
+            let user = await db.User.findOne({
+                where: { phoneNumber: phone}
+            });
+            if(user){
+                resolve(true)
+            }else{
+                resolve(false)
+            }
+        }catch(error){
+            reject(error)
+
+        }
+    })
+}
 
 let getUserByEmail = (userEmail) => {
 
@@ -203,23 +229,7 @@ let getUserByEmail = (userEmail) => {
         }
     })
 }
-// let checkUsersPhoneNumber = (userphoneNumber) => {
-//     return new Promise(async(resolve, reject) => {
-//         try{
-//             let user = await db.User.findOne({
-//                 where: { phoneNumber: userphoneNumber}
-//             });
-//             if(user){
-//                 resolve(true)
-//             }else{
-//                 resolve(false)
-//             }
-//         }catch(error){
-//             reject(error)
 
-//         }
-//     })
-// }
 
 let getAllUsers = (userId) =>{
     return new Promise(async(resolve,reject)=>{
@@ -242,59 +252,6 @@ let getAllUsers = (userId) =>{
                 })
             }
             resolve(users)
-        } catch (error) {
-            reject(error)
-        }
-    })
-}
-
-let getUserWithPagination = (searchUser,pageUser,limitUser)=>{
-    return new Promise(async(resolve, reject) => {
-
-        console.log(searchUser,pageUser,limitUser)
-        try {
-            const page = parseInt(pageUser) || 0;
-            const limit = parseInt(limitUser) || 10;
-            const search = searchUser || '';
-            const offset = limit * page;
-            const totalRows = await db.User.count({
-                where: {
-                    [Op.or]:[
-                        {
-                            username:{
-                            [Op.like]:'%'+search+'%'
-                            }
-                        }
-                    ]
-                }
-            })
-            const totalPage = Math.ceil(totalRows / limit);
-            const result = await db.User.findAll({
-                where: {
-                    [Op.or]:[
-                        {
-                            username:{
-                            [Op.like]:'%'+search+'%'
-                            }
-                        }
-                    ]
-                },
-                raw: true,
-                attributes:{
-                    exclude: ['password']
-                },
-                offset: offset,
-                limit: limit,
-                order: [['createdAt', 'DESC']]
-            })
-            // resolve(result)
-            resolve({
-                users: result,
-                page: page,
-                limit:limit,
-                totalRows: totalRows,
-                totalPage:totalPage
-            })
         } catch (error) {
             reject(error)
         }
@@ -355,16 +312,79 @@ let updateUserData = (data)=>{
     });
 }
 
+// let getAllRole = (roleId) =>{
+//     return new Promise(async(resolve,reject)=>{
+//         try {
+//             let roles='';
+//             if(roleId === 'ALL'){
+//                 roles = db.Role.findAll({
+//                     raw: true,
+//                 });
+//             }
+//             if(roleId && roleId !== 'ALL'){
+//                 roles = await db.Role.findOne({
+//                     where: {id: roleId},
+//                     raw : true ,
+//                 })
+//             }
+//             resolve(roles)
+//         } catch (error) {
+//             reject(error)
+//         }
+//     })
+// }
+
+let getRoleByUser=(userId)=>{
+    return new Promise( async(resolve,reject)=>{
+        try {
+            let role = await db.UserRole.findAll({
+                where: {
+                    name:userId
+                },
+                raw: true,
+            })
+            if(role){
+                resolve(role)
+            }else{
+                resolve('')
+            }
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
+
+let isAdmin = (id)=> {
+    return new Promise(async(resolve, reject) => {
+        try {
+            const user = await db.User.findByPk(id);
+            
+            const roles = await user.getRoles(user.id);
+            for (let i = 0; i < roles.length; i++) {
+              if (roles[i].name === "admin") {
+                    resolve({
+                        errCode: 0,
+                        
+                    })
+              }
+            }
+        
+          } catch (error) {
+            reject(error);
+          }
+    })
+  };
 
 module.exports = {
     checkUsersEmail : checkUsersEmail,
-    // checkUsersPhoneNumber: checkUsersPhoneNumber,
+    checkUsersPhoneNumber: checkUsersPhoneNumber,
     handleUserLogin: handleUserLogin,
     getAllUsers: getAllUsers,
     createNewUser: createNewUser,
     deleteUser:deleteUser,
     updateUserData: updateUserData,
-    getUserWithPagination:getUserWithPagination,
     generateJWTToken:generateJWTToken,
-    getUserByEmail:getUserByEmail
+    getUserByEmail:getUserByEmail,
+    isAdmin:isAdmin
+    // getAllRole: getAllRole
 }

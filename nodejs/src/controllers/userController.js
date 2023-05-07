@@ -166,6 +166,17 @@ let handleDeleteUser = async(req,res) => {
     let message = await userService.deleteUser(req.body.id);
     return res.status(200).json(message);
 }
+
+let handleIsAdmin = async(req,res)=>{
+    if(!req.body.id){
+        return res.status(200).json({
+            errCode : 1,
+            message: 'Missing inputs parameter!',
+        })
+    }
+    let message = await userService.isAdmin(req.body.id);
+    return res.status(200).json(message);
+}
 module.exports = {
     handleLogin: handleLogin,
     handleRegister: handleRegister,
@@ -175,7 +186,9 @@ module.exports = {
     handleEditUser: handleEditUser,
     handleDeleteUser: handleDeleteUser,
     verifyToken:verifyToken,
-    handleGetUserByEmail:handleGetUserByEmail
+    handleGetUserByEmail:handleGetUserByEmail,
+    handleIsAdmin:handleIsAdmin
+    
 }
 
 // exports.handleLogin = (req,res) => {

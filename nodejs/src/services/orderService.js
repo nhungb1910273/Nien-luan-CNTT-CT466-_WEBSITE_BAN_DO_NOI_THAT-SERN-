@@ -133,25 +133,6 @@ let getDetailOrderByOrderId = (orderId) =>{
     })
 }
 
-// req.body
-// let getOrdersByStatus=(orderName)=>{
-//     return new Promise( async(resolve,reject)=>{
-//         try {
-//             let orders = await db.Order.findAll({
-//                 attributes: ['status', [Sequelize.fn('COUNT', Sequelize.col('status')), 'total']],
-//                 group: ['status']
-//             })
-//             if(orders){
-//                 resolve(orders)
-//             }else{
-//                 resolve('')
-//             }
-//         } catch (error) {
-//             reject(error);
-//         }
-//     })
-// }
-
 
 // let getOrdersByCount=()=>{
 //     return new Promise( async(resolve,reject)=>{
@@ -218,5 +199,5 @@ module.exports = {
     getAllOrdersByUserId:getAllOrdersByUserId,
     getDetailOrderByOrderId:getDetailOrderByOrderId,
     updateStatus:updateStatus,
-    updateQtyProduct: updateQtyProduct
+    updateQtyProduct: updateQtyProduct,
 }

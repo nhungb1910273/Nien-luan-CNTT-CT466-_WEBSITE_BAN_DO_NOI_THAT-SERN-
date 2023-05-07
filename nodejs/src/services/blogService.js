@@ -147,7 +147,7 @@ let addComment = (data) => {
                 content: data.content,
                 blogId: data.blogId,
                 userId: data.userId,
-                status: data.status ? 1 : 0 
+                status: data.status ? 0 : 1 
             })
             resolve({
                 errCode: 0,

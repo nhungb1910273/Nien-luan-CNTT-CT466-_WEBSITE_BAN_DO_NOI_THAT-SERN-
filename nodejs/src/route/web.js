@@ -46,8 +46,8 @@ let initWebRoutes = (app) => {
     router.get('/api/get-user-by-email',userController.handleGetUserByEmail);
     // router.post('/api/auth/logout',userController.logout);
     router.get(
-        "/api/test/user",
-        userController.verifyToken
+        "/api/test/admin",
+        userController.handleIsAdmin
       );
    
     router.get('/api/get-all-categories', categoryController.handleGetAllCategories);
