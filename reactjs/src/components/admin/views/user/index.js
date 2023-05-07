@@ -12,7 +12,7 @@ import { getAllUsers} from '../../../services/userService';
 const ListUser = () => {
 
     const [arrUsers,setArrUsers]=useState([]);
-    const [search, setSearch] = useState('');
+    const [userData,setUserData]=useState([]);
 
     // const [pagColor,setPagColor]=useState([]);
     const [isloaded,setIsLoaded]=useState(false);
@@ -30,13 +30,17 @@ const ListUser = () => {
         setIsLoaded(false);
         const response = await getAllUsers('ALL');
         if(response && response.data.errCode === 0){
-            var tdata = response.data.users;
-            var slice = tdata.slice(offset, offset + perPage)
-            setPageCount(Math.ceil(tdata.length / perPage));
-            // setPagColor(tdata);
-            setArrUsers(slice);
-            setIsLoaded(true);
+           setUserData(response.data.users);
+           pagination(response.data.users);
         }
+    }
+
+    const pagination = (tdata)=>{
+        var slice = tdata.slice(offset, offset + perPage)
+        setPageCount(Math.ceil(tdata.length / perPage));
+        // setPagColor(tdata);
+        setArrUsers(slice);
+        setIsLoaded(true);
     }
     const handlePageClick = (e) => {
         const selectedPage = e.selected;
@@ -45,9 +49,7 @@ const ListUser = () => {
         setOffset(offset);
         // loadMoreData();
     };
-    const handleSearch = (event) => {
-        setSearch(event.target.value);
-      };
+   
     
     // const data = {
     //     const filter = arrUsers.filter((item) =>
@@ -70,6 +72,17 @@ const ListUser = () => {
     //     }
     // }
 
+    const [filterParam, setFilterParam] = useState('');
+
+    const handleFilter = async(e)=>{
+        setFilterParam(e.target.value);
+        if(e.target.value===''){
+            setArrUsers(userData)
+        }else{
+            const search = userData.filter(item => (item.username.toLowerCase().includes(e.target.value.toLowerCase())|| item.email.toLowerCase().includes(e.target.value.toLowerCase()) || item.phoneNumber.toLowerCase().includes(e.target.value.toLowerCase())));
+            setArrUsers(search);
+        }
+    }
 
     return (
         <div className='list'>
@@ -90,22 +103,10 @@ const ListUser = () => {
                 <div className='form-body'>
                     <div class="search" htmlFor="search">
                         <i class="fa-solid fa-magnifying-glass"></i>
-                        <input className="form-control" id="search" type="text" onChange={handleSearch} placeholder="Search username, email and phone number..." />
+                        <input className="form-control" id="search" type="text" value={filterParam}
+                            onChange={(e) => handleFilter(e)} placeholder="Search username, email and phone number..." />
                     </div>
-                    {/* <div className='d-flex justify-content-end'>
-
-                        <form className="d-flex">
-                            <input
-                                className='form-control'
-                                type="text"
-                                placeholder="Search...."
-                                // onChange={e=>setSearchInput(e.target.value)}
-                                // value={searchInput} 
-
-                                />
-                            <button type='submit' style={{whiteSpace:"nowrap"}} className='btn btn-primary'>Search</button>
-                        </form>
-                    </div> */}
+                   
                     <div className='table-responsive mt-5'>
                         <table className="table table-hover">
                             <thead>

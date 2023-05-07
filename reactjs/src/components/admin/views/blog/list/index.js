@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import '../../../../styles/Login.css';
-import { getAllBlogs } from '../../../../services/blogService';
+import { deleteBlog, getAllBlogs } from '../../../../services/blogService';
 import { IMG_URL } from '../../../../config/imgUrl';
 import {ThreeDots} from 'react-loader-spinner';
 import Pagination from '../../../../pagination';
@@ -46,7 +46,7 @@ const ListBlog =()=> {
         // loadMoreData();
     };
     
-    const handleDeleteBlog= async(product)=>{
+    const handleDeleteBlog= async(blog)=>{
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -58,12 +58,12 @@ const ListBlog =()=> {
           }).then(async(result) => {
             if (result.isConfirmed) {
                 try {
-                    // let res = await deleteProductService(product.id);
-                    // if(res && res.data.errCode === 0){
-                    //     await getAllBlogsFromReact();
-                    // }else{
-                    //     alert(res.data.errMessage)
-                    // }
+                    let res = await deleteBlog(blog.id);
+                    if(res && res.data.errCode === 0){
+                        await getAllBlogsFromReact();
+                    }else{
+                        alert(res.data.errMessage)
+                    }
                 } catch (error) {
                     console.log(error)
                 }
@@ -106,7 +106,7 @@ const ListBlog =()=> {
                                 <button type='submit' style={{whiteSpace:"nowrap"}} className='btn btn-primary'>Search</button>
                             </form> */}
                             <div className='mx-2'>
-                                <a href='/admin/add-product'><button className='btn add-product'><i class="fa-solid fa-plus me-2"></i>Add</button></a>
+                                <a href='/admin/add-blog'><button className='btn add-product'><i class="fa-solid fa-plus me-2"></i>Add</button></a>
                             </div>
                         </div>
                     </div>

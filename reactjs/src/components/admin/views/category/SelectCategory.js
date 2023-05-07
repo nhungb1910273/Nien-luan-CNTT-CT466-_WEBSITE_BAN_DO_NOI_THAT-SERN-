@@ -1,4 +1,4 @@
-import Select from 'react-select';
+import CreatableSelect from 'react-select/creatable';
 import { useEffect,useState } from 'react';
 import { getAllCategories } from '../../../services/categoryService';
 
@@ -40,18 +40,22 @@ const SelectCategory =(props)=>{
     
     
     const handleSelectChange = (name) => {
-        console.log(name);
         props.onSelected(name.value)
+        setValue({
+            value:name.value,
+            label:name.label
+        })
     };
 
     
     return(
-        <Select 
+        <CreatableSelect 
             name="categoryId" 
-            
+            value={value}
             isSearchable={true} 
             onChange={handleSelectChange} 
             options={Arrays(getList, "name", "id")} 
+            
             />
     )
 }

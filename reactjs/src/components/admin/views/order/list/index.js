@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 const ListOrder = ()=>{
 
     const [arrOrder,setOrder]=useState([]);
+    const [orderData,setOrderData]=useState([]);
     const [isOpenModalEditOrder,setIsOpenModalEditOrder]=useState(false);
     const [orderEdit,setOrderEdit]=useState({})
     
@@ -20,6 +21,7 @@ const ListOrder = ()=>{
     const [currentPage,setCurrentPage]=useState(0);
     const [pageCount,setPageCount]=useState(0);
 
+
     useEffect(()=>{
         getAllOrdersFromReact();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -29,13 +31,16 @@ const ListOrder = ()=>{
         setIsLoaded(false);
         const response = await getAllOrders('ALL');
         if(response && response.data.errCode === 0){
-            var tdata = response.data.orders;
-            var slice = tdata.slice(offset, offset + perPage)
+            setOrderData(response.data.orders);
+            pagination(response.data.orders);
+        }
+    }
+    const pagination = (tdata)=>{
+        var slice = tdata.slice(offset, offset + perPage)
             setPageCount(Math.ceil(tdata.length / perPage));
             // setPagColor(tdata);
             setOrder(slice);
             setIsLoaded(true);
-        }
     }
     const handlePageClick = (e) => {
         const selectedPage = e.selected;
@@ -91,15 +96,27 @@ const ListOrder = ()=>{
           })
         
     }
+    const [filterParam, setFilterParam] = useState('');
+
+    const handleFilter = async(e)=>{
+        setFilterParam(e.target.value);
+        if(e.target.value===''){
+            setOrder(orderData);
+        }else{
+            const search = orderData.filter(item => (item.status.toLowerCase().includes(e.target.value.toLowerCase())|| item.number.toLowerCase().includes(e.target.value.toLowerCase())));
+            setOrder(search)
+        }
+        
+
+    }
+
     return(
         <div className='list'>
             <div className="row">
                 <div className="col-lg-5 col-md-9 col-lg-6">
                     <h3 className="mt-30 page-title">Order</h3>
                 </div>
-                {/* <div className="col-lg-5 col-md-3 col-lg-6 back-btn">
-                    <Button variant="contained" onClick={(e) => this.handleBack()}><i className="fas fa-arrow-left" /> Back</Button>
-                </div> */}
+               
             </div>
             <ol className="breadcrumb mb-30">
                 <li className="breadcrumb-item"><a href="/">Dashboard</a></li>
@@ -120,26 +137,13 @@ const ListOrder = ()=>{
                 <div className='form-body'>
                     <div class="search">
                         <i class="fa-solid fa-magnifying-glass"></i>
-                        <input className="form-control" type="text" placeholder="Search status, email customer..." />
+                        <input className="form-control" type="text" placeholder="Search status, number..." 
+                            value={filterParam}
+                            onChange={(e) => handleFilter(e)}
+
+                        />
                     </div>
-                    <div className='d-flex justify-content-between align-items-center'>
-                        <div className=''>
-                            {/* <button className='btn add-product' onClick={()=>handleAddNewCategory()}><i class="fa-solid fa-plus me-2"></i>Add</button> */}
-                        </div>
-                        <div className='d-flex'>
-                            {/* <form className="d-flex" onSubmit={searchData}>
-                                <input
-                                    className='form-control'
-                                    type="text"
-                                    placeholder="Search...."
-                                    onChange={e=>setSearchInput(e.target.value)}
-                                    value={searchInput} 
-                                    />
-                                <button type='submit' style={{whiteSpace:"nowrap"}} className='btn btn-primary'>Search</button>
-                            </form> */}
-                            
-                        </div>
-                    </div>
+                    
                     
                     <div className='table-responsive mt-5 mb-3'>
                         <table className="table table-hover">

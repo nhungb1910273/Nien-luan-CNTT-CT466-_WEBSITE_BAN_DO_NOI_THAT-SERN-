@@ -208,7 +208,7 @@ const Product= ()=>{
                     <div className="row justify-content-between py-4">
                         {isloaded ? arrProducts && arrProducts.map((product)=>{
                         
-                            return(
+                            return product.hidden === 0 && (
                                 <div className="col-lg-2 col-ms-4 col-sm-6 col-6" key={product.id}>
                                     <div className="product-img">
                                     {product.discountPer ? 

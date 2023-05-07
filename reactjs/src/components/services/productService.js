@@ -26,8 +26,9 @@ const deleteProductService = (productId) =>{
     });
 }
 const updateProductService = (inputData) =>{
-    return axios.put(`${API_URL}/api/edit-user`,inputData)
+    return axios.put(`${API_URL}/api/edit-product`,inputData)
 }
+
 const getAllColors = (inputId) => {
     return axios.get(`${API_URL}/api/get-all-colors?id=${inputId}`)
 }

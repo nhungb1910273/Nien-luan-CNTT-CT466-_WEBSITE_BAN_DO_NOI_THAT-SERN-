@@ -69,6 +69,7 @@ const EditBlog =()=>{
     
     const handleAddNewBlog = ()=>{
         const {id,name,photo,writer,slug,description,content,hidden,newBlog}=arrEditBlog;
+        
         const formData = new FormData();
         formData.append('id',id)
         formData.append('name',name)
@@ -146,7 +147,7 @@ const EditBlog =()=>{
             </div>
             <ol className="breadcrumb mb-30">
                 <li className="breadcrumb-item"><a href="/">Dashboard</a></li>
-                <li className="breadcrumb-item"><a href="/admin/blog/create">Blog</a></li>
+                <li className="breadcrumb-item"><a href="/admin/blog">Blog</a></li>
                 <li className="breadcrumb-item active">Edit Blog</li>
             </ol>
             <div className="row">
@@ -243,7 +244,7 @@ const EditBlog =()=>{
                             <div className="col-12 mb-3">
                                 <label className="form-label">Hidden:</label>
                                 <div class="form-check form-switch">
-                                    <input className="form-check-input" type="checkbox" role="switch" id="hidden" name="hidden" checked={arrEditBlog.hidden ? '1':''} 
+                                    <input className="form-check-input" type="checkbox" role="switch" id="hidden" name="hidden" checked={arrEditBlog.hidden} 
                                         onChange={(e) => {
                                             handleOnChange({
                                             target: {
@@ -260,7 +261,7 @@ const EditBlog =()=>{
                             <div className="col-12">
                                 <label className="form-label">New Blog:</label>
                                 <div class="form-check form-switch">
-                                    <input className="form-check-input" type="checkbox" role="switch" id="newBlog" name="newBlog" checked={arrEditBlog.newBlog ? '1':''} 
+                                    <input className="form-check-input" type="checkbox" role="switch" id="newBlog" name="newBlog" checked={arrEditBlog.newBlog} 
                                         onChange={(e) => {
                                             handleOnChange({
                                             target: {

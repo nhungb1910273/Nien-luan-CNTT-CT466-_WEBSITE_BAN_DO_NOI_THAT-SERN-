@@ -31,7 +31,7 @@ const ListProduct =()=> {
     const [perPage]=useState(10);
     const [currentPage,setCurrentPage]=useState(0);
     const [pageCount,setPageCount]=useState(0);
-    
+    const [productData,setProductData]=useState([]);
     const [isOpenModalDetailProduct,setIsOpenModalDetailProduct]=useState(false);
 
     // const handleShowDetail = ()=>{
@@ -48,13 +48,16 @@ const ListProduct =()=> {
         setIsLoaded(false);
         const response = await getAllProducts('ALL');
         if(response && response.data.errCode === 0){
-            var tdata = response.data.products;
-            var slice = tdata.slice(offset, offset + perPage)
+            setProductData(response.data.products)
+            pagination(response.data.products);
+        }
+    }
+    const pagination = (tdata)=>{
+        var slice = tdata.slice(offset, offset + perPage)
             setPageCount(Math.ceil(tdata.length / perPage));
             // setPagProduct(tdata);
             setArrProducts(slice);
             setIsLoaded(true);
-        }
     }
     const handlePageClick = (e) => {
         const selectedPage = e.selected;
@@ -145,6 +148,24 @@ const ListProduct =()=> {
         setIsOpenModalDetailProduct(!isOpenModalDetailProduct);
 
     }
+    const handleSelectCategory=async(categoryId)=>{
+        if(categoryId){
+            const search = productData.filter(item => (item.categoryId === categoryId));
+            setArrProducts(search);
+            pagination(search);
+        }
+    }
+    const [filterParam, setFilterParam] = useState('');
+
+    const handleFilter = async(e)=>{
+        setFilterParam(e.target.value);
+        if(e.target.value===''){
+            setArrProducts(productData);
+        }else{
+            const search = productData.filter(item => (item.name.toLowerCase().includes(e.target.value.toLowerCase())));
+            setArrProducts(search);
+        }
+    }
     // handleSubmit = async (event) => {
     //     event.preventDefault();
     //     this.setState({ loading: false })
@@ -193,18 +214,19 @@ const ListProduct =()=> {
             <div className='form-container mt-4'>
                 <h4 className='text-center form-title'>List Of Products</h4>
                 <div className='form-body'>
+                    
                     <div className='d-flex justify-content-between align-items-center'>
-                        <SelectCategory />
                         <div className='d-flex'>
-                            {/* <form className="d-flex" onSubmit={searchData}>
-                                <input
-                                    className='form-control'
-                                    type="text"
-                                    placeholder="Search...."
-                                    onChange={e=>setSearchInput(e.target.value)}
-                                    value={searchInput} />
-                                <button type='submit' style={{whiteSpace:"nowrap"}} className='btn btn-primary'>Search</button>
-                            </form> */}
+                            <div style={{width:"50%"}}>
+                            <SelectCategory onSelected={handleSelectCategory}/>
+                            </div>
+                            <div class="search ms-2" htmlFor="search">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input className="form-control" id="search" type="text" value={filterParam}
+                                    onChange={(e) => handleFilter(e)} placeholder="Search name..." />
+                            </div>
+                        </div>
+                        <div className='d-flex'>
                             <div className='mx-2'>
                                 <a href='/admin/add-product'><button className='btn add-product'><i class="fa-solid fa-plus me-2"></i>Add</button></a>
                             </div>

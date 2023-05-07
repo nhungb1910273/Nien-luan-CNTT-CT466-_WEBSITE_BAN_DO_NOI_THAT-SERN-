@@ -150,7 +150,8 @@ const CheckoutDetail = ()=>{
                             </div>
                         </div>
                         <hr/>
-                        <div className="row cart-content" >
+                        {Object.keys(address).length !== 0 && (
+                            <div className="row cart-content" >
                             <div className="col-12 mb-4">
                                 <b className="me-2">Full Name: </b>
                                 <span>{address.fullName}</span>
@@ -169,6 +170,7 @@ const CheckoutDetail = ()=>{
                                 <span>{address.shippingAdr}</span>
                             </div>
                         </div>
+                        )}
                         
                     </div>
                     <div className="cart mt-4">
@@ -177,7 +179,7 @@ const CheckoutDetail = ()=>{
                         <div className="row cart-content">
                             <div class="col-12 mb-4">
                                 <label class="form-label">Message:</label>
-                                <textarea class="form-control" rows="3" value={message} onChange={(e)=>setMessage(e)}></textarea>
+                                <textarea class="form-control" rows="3" value={message} onChange={(e)=>setMessage(e.target.value)}></textarea>
                             </div>
                         </div>
 
@@ -204,7 +206,7 @@ const CheckoutDetail = ()=>{
                                         <b>Subtotal Price:</b>
                                         </div>
                                         <div className="col-6">
-                                        {new Intl.NumberFormat().format(order.grandTotal)}đ
+                                        {order.grandTotal ? new Intl.NumberFormat().format(order.grandTotal) : '0'}đ
                                         </div>
                                     </div>
                                     <div className="row mb-4">

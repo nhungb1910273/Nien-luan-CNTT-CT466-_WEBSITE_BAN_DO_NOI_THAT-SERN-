@@ -28,6 +28,7 @@ const Blog =()=>{
                     <h2 class="pt-4">Blog</h2>
                         
                         {arrBlogs && arrBlogs.map((blog,index)=>{
+                            // khong an
                             return blog.hidden === 0 && (
                                 <div class="row py-4" key={blog.id}>
                                     <div class="col-4 img-hover-zoom--1 img-hover-zoom--blur--1">
@@ -61,6 +62,7 @@ const Blog =()=>{
                         </div>
                         <ul>
                            {arrBlogs && arrBlogs.map(blog=>{
+                            // tin moi
                             return blog.newBlog === 1 && (
                                 <li class="news_title">
                                     <div class="img_news">

@@ -30,11 +30,11 @@ const Home = ()=>{
             <div className="container">
                 <div className=" py-5 ">
                     <h3 className="text-center">NEW PRODUCT</h3>
-                    <a href="all" className="all">See all <i className="fa-solid fa-angles-right"></i></a>
+                    <Link to="/product" className="all">See all <i className="fa-solid fa-angles-right"></i></Link>
                 </div>
                 <div className="row justify-content-center">
-                    {product && product.map((item)=>{
-                        return item.hidden === 0 && item.newArrival === 1 && (
+                    {product && product.map((item,index)=>{
+                        return item.hidden === 0 && item.newArrival === 1 && index < 8 && (
                             <div className="col-lg-3 col-ms-6 col-sm-6 col-6" key={item.id}>
                                 <div className="product-img">
                                     {item.discountPer ? 
@@ -89,11 +89,11 @@ const Home = ()=>{
             <div className="container">
                 <div className=" py-5 ">
                     <h3 className="text-center">SALE PRODUCT</h3>
-                    <a href="all" className="all">See all <i className="fa-solid fa-angles-right"></i></a>
+                    <Link to="/product" className="all">See all <i className="fa-solid fa-angles-right"></i></Link>
                 </div>
                 <div className="row justify-content-center">
-                    {product && product.map((item)=>{
-                        return item.hidden === 0 && item.discountPer ? (
+                    {product && product.map((item,index)=>{
+                        return item.hidden === 0 && item.discountPer && index < 8 ? (
                             <div className="col-lg-3 col-ms-6 col-sm-6 col-6" key={item.id}>
                                 <div className="product-img">
                                     {item.discountPer ? 

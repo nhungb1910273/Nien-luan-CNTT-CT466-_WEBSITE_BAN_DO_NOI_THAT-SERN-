@@ -56,7 +56,8 @@ const SelectColor =(props)=>{
     placeholder: (styles) => ({ ...styles, ...dot('#ccc') }),
     singleValue: (styles, { data }) => ({ ...styles, ...dot(data.color) }),
   };
-  
+  const [value,setValue]=useState({});
+  const val= props.value;
   const Arrays = (data, fieldName, fieldValue,fieldColor) => {
       let arrayItem = [];
       if (data && Array.isArray(data)) {
@@ -73,25 +74,49 @@ const SelectColor =(props)=>{
       const getAllColorsFromReact = async() =>{
           let response = await getAllColors('ALL');
           if(response && response.data.errCode === 0){
-              setGetList(response.data.colors);
+            var data = response.data.colors;
+              setGetList(data);
+              for(let i=0;i<data.length;i++){
+                console.log(val);
+                if(data[i].id === val){
+                    setValue({
+                        value:data[i].id,
+                        label:data[i].name,
+                        color:data[i].code,
+                        name: 'colorId'
+                       
+                    })
+                }
+            }
           }
       }
       getAllColorsFromReact();
-  },[])
+  },[val])
 
 
  
 
   const handleSelectChange=(selected,index)=>{
+    console.log(selected,index);
+    
     const {name,value}=selected;
+    
     const list = [...props.listDetail];
     list[index][name] = value;
     props.onChangeColor(list);
+    setValue({
+      value:value,
+      label:selected.label,
+      color:selected.color,
+      name:selected.name
+      
+  })
+    
   }
   return(
       <Select
           options={Arrays(getList, "name", "id","code")}
-          // value={Arrays(getList, "name", "id","code")[0]}
+          value={value}
           styles={colourStyles}
           onChange={(selected)=>handleSelectChange(selected,props.index)}
       />
