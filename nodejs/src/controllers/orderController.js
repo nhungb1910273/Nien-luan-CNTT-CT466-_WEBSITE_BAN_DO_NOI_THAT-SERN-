@@ -92,5 +92,5 @@ module.exports = {
     handleAddOrder: handleAddOrder,
     handleUpdateStatus: handleUpdateStatus,
     handleDeleteCart: handleDeleteCart,
-    handleDeleteAllCart:handleDeleteAllCart
+    handleDeleteAllCart:handleDeleteAllCart,
 }

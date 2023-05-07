@@ -51,6 +51,7 @@ let addOrder = (data) => {
     })
 }
 
+
 let updateQtyProduct = (productId,qty)=>{
     return new Promise(async(resolve, reject) => {
         try {
@@ -132,27 +133,6 @@ let getDetailOrderByOrderId = (orderId) =>{
         }
     })
 }
-
-
-// let getOrdersByCount=()=>{
-//     return new Promise( async(resolve,reject)=>{
-//         try {
-//             let orders = await db.Blog.findAll({
-//                 where: { status: req.body.status },
-//                 order: [['createdAt', 'DESC']],
-//                 include: [{ model: db.Address, include: [{ model: db.Cart }] }],
-//             })
-//             if(orders){
-//                 resolve(orders)
-//             }else{
-//                 resolve('')
-//             }
-//         } catch (error) {
-//             reject(error);
-//         }
-//     })
-// }
-
 
 let updateStatus = (data)=>{
     console.log(data);

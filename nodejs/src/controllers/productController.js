@@ -114,11 +114,9 @@ let handleCreateNewProduct = async(req,res) => {
 }
 
 let handleEditProduct = async(req,res) => {
-    let data = req.body;
-    let message = await productService.updateProductData(data);
+    let message = await productService.updateProductData(req.body,req.file);
     return res.status(200).json(message)
 }
-
 let handleDeleteProduct = async(req,res) => {
     if(!req.body.id){
         return res.status(200).json({

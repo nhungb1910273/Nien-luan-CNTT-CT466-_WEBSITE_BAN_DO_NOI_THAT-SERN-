@@ -46,6 +46,7 @@ let getBlogsByName=(blogName)=>{
 let createNewBlog = (data,file) => {
     return new Promise(async(resolve,reject)=>{
         try { 
+            console.log(data);
             await db.Blog.create({
                 name: data.name,
                 photo: file.filename,
@@ -72,21 +73,22 @@ let deleteBlog = (blogId) => {
         try {
             let foundBlog = await db.Blog.findOne({
                 where: {id: blogId},
-                raw:true,
             })
             if(!foundBlog){
                 resolve({
-                    errCode:2,
+                    errCode:1,
                     errMessage: `The Blog isn't exist`
                 })
+            }else{
+                await db.Blog.destroy({
+                    where: {id:blogId}
+                })
+                resolve({
+                    errCode: 0,
+                    errMessage: `The Blog is delete`
+                });
             }
-            await db.Blog.destroy({
-                where: {id:blogId}
-            })
-            resolve({
-                errCode: 0,
-                errMessage: `The Blog is delete`
-            });
+            
         } catch (error) {
             reject(error)
         }

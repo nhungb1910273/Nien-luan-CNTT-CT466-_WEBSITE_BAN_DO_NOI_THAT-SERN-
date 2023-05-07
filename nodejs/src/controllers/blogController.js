@@ -1,7 +1,6 @@
 import blogService from '../services/blogService';
 
 let handleCreateBlog = async(req,res) => {
-    console.log(req.body,req.file);
     let message = await blogService.createNewBlog(req.body,req.file)
     return res.status(200).json(message);
 }

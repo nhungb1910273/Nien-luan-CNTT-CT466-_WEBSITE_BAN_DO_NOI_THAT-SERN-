@@ -78,7 +78,7 @@ let deleteCart = (cartId) => {
         })
         if(!foundCart){
             resolve({
-                errCode:2,
+                errCode:1,
                 errMessage: `The product doesn't exist in the cart`
             })
         }

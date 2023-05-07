@@ -63,7 +63,7 @@ let initWebRoutes = (app) => {
     router.get('/api/get-all-product-by-category', productController.handleGetProductByCategory);
     router.get('/api/get-all-productphoto', productController.handleGetAllProductPhoto);
     router.get('/api/get-product-by-search-name', productController.handleGetSearchProducts);
-    // router.put('/api/edit-product',productController.handleEditproduct);
+    router.put('/api/edit-product',upload.single('photo'),productController.handleEditProduct);
     router.delete('/api/delete-product',productController.handleDeleteProduct);
 
 
