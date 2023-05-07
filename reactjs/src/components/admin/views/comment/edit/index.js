@@ -127,7 +127,7 @@ const ModalEditComment =(props)=> {
             size="lg"
             centered
         >
-            <ModalHeader toggle={toggle}>Edit Status Comment</ModalHeader>
+            <ModalHeader toggle={toggle}>Edit Status Comment {arrInput.id}</ModalHeader>
             <ModalBody>
                 <div className="container">
                     <div className="">

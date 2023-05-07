@@ -134,9 +134,9 @@ const Register = () =>{
                             <div className='card text-white bg-primary py-5'>
                                 <div class="card-body text-center">
                                     <div>
-                                        <h2>Sign up</h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                        <button onClick={event =>  window.location.href='/register'} class="btn btn-primary mt-3 active" aria-current="page" type="button" tabindex="-1">Register Now!</button>
+                                        <h2>Go back Home</h2>
+                                        <p>Let's get started.</p>
+                                        <button onClick={event =>  window.location.href='/'} class="btn btn-primary mt-3 active" aria-current="page" type="button" tabindex="-1">Back!</button>
                                     </div>
                                 </div>
                             </div>

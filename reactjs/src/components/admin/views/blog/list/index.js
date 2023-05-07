@@ -80,7 +80,7 @@ const ListBlog =()=> {
         <div className='list'>
             <div className="row">
                 <div className="col-lg-5 col-md-9 col-lg-6">
-                    <h3 className="mt-30 page-title">Product</h3>
+                    <h3 className="mt-30 page-title">Blog</h3>
                 </div>
                 {/* <div className="col-lg-5 col-md-3 col-lg-6 back-btn">
                     <Button variant="contained" onClick={(e) => this.handleBack()}><i className="fas fa-arrow-left" /> Back</Button>
@@ -88,11 +88,11 @@ const ListBlog =()=> {
             </div>
             <ol className="breadcrumb mb-30">
                 <li className="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                <li className="breadcrumb-item active">Product</li>
+                <li className="breadcrumb-item active">Blog</li>
             </ol>
           
             <div className='form-container mt-4'>
-                <h4 className='text-center form-title'>List Of Products</h4>
+                <h4 className='text-center form-title'>List Of Blogs</h4>
                 <div className='form-body'>
                     <div className='d-flex justify-content-between align-items-center'>
                         <div className='d-flex'>

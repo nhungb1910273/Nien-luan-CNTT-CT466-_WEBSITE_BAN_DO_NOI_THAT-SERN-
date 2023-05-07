@@ -181,6 +181,7 @@ const DetailBlog =()=>{
           })
         
     }
+    console.log(arrComment);
     return(
         <div className="blog_main blog">
         <hr />
@@ -213,11 +214,14 @@ const DetailBlog =()=>{
                             </div>
                         </div>
                         <hr />
+
                         <div>
                             <h5>View Comment</h5>
                             {arrComment && arrComment.map(item => {
-                                return item.status === 1 && item.blogId === blog.id (
+                                console.log(item.blogId,id);
+                                return (item.status === 0 && item.blogId === parseInt(id) ) &&(
                                     <div class="border rounded-1 p-3 mb-3 row justify-content-between align-items-center">
+                                    
                                         <div className="col-md-10">
                                             <User userId={item.userId} />
                                             <span class="text-muted" style={{fontSize:"14px"}}>{moment(item.createdAt).format("YYYY.MM.DD hh:mm")}</span>

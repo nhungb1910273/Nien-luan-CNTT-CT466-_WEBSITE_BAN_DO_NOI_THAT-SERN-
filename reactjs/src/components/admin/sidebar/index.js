@@ -82,7 +82,10 @@ const SideBar =(props)=>{
                             </Collapse>
                         </li>
                         <li>
-                            <NavLink className={(navData) => navData.isActive ? "active" : "" } to="list-comment" ><i class="fa-solid fa-box-open"></i> Comment</NavLink>
+                            <NavLink className={(navData) => navData.isActive ? "active" : "" } to="list-comment" ><i class="fa-regular fa-comment"></i> Comment</NavLink>
+                        </li>
+                        <li>
+                            <NavLink className={(navData) => navData.isActive ? "active" : "" } to="list-feedback" ><i class="fa-regular fa-envelope"></i> Feedback</NavLink>
                         </li>
                         
                     </ul>

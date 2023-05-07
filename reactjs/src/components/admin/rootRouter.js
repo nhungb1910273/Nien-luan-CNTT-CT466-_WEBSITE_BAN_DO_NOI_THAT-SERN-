@@ -18,6 +18,8 @@ import EditBlog from "./views/blog/edit";
 import ListOrder from "./views/order/list";
 import DetailOrder from "./views/order/detail_order";
 import ListComment from "./views/comment/list";
+import ListFeedback from "./views/feedback/list";
+import Dashboard from "./views/dashboard";
 const RootRouter =()=>{
     
     const [isHide,setIsHide]=useState(false);
@@ -55,7 +57,7 @@ const RootRouter =()=>{
                     </Nav.Item>
                 </Nav>
                 <Routes>
-                    <Route path="/" element={<h2>Home</h2>} />
+                    <Route path="/" element={<Dashboard />} />
                     <Route path="list-product" element={<ListProduct />} />
                     <Route path="add-product" element={<AddProduct />} />
                     <Route path="edit-product/:id" element={<EditProduct /> }/>
@@ -68,6 +70,7 @@ const RootRouter =()=>{
                     <Route path="add-blog" element={<AddBlog />} />
                     <Route path="edit-blog/:id" element={<EditBlog />} />
                     <Route path="list-comment" element={<ListComment />} />
+                    <Route path="list-feedback" element={<ListFeedback />}  />
                 </Routes>
             </div>
         </div>

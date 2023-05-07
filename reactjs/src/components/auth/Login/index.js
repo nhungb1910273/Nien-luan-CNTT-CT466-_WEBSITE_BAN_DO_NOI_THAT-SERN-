@@ -179,8 +179,8 @@ const Login =()=>{
                             <div className='card text-white bg-primary py-5'>
                                 <div className="card-body text-center">
                                     <div>
-                                        <h2>Sign up</h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                        <h2>Welcome back</h2>
+                                        <p>The faster you fill up, the faster you get a ticket</p>
                                         <button onClick={event =>  window.location.href='/register'} className="btn btn-primary mt-3 active" aria-current="page" type="button" tabIndex="-1">Register Now!</button>
                                     </div>
                                 </div>
