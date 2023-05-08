@@ -1,28 +1,6 @@
 import db from "../models/index";
-const { Op } = require("sequelize");
 
-let createAddress = (data) => {
-    return new Promise(async(resolve,reject)=>{
-        try {  
-            await db.Address.create({
-                fullName:data.data.fullName,
-                phoneNumber: data.data.phoneNumber,
-                ward:data.data.ward,
-                district:data.data.district,
-                city:data.data.city,
-                shippingAdr: data.data.shippingAdr,
-                userId:data.userId
-            })
-            resolve({
-                errCode: 0,
-                message: 'OK'
-            });
-        } catch (error) {
-            // console.error(error)
-            reject(error)
-        }
-    })
-}
+
 let getAllAddress = (id) =>{
     return new Promise(async(resolve,reject)=>{
         try {
@@ -45,6 +23,29 @@ let getAllAddress = (id) =>{
     })
 }
 
+let createAddress = (data) => {
+    return new Promise(async(resolve,reject)=>{
+        try {  
+            
+            await db.Address.create({
+                fullName:data.data.fullName,
+                phoneNumber: data.data.phoneNumber,
+                ward:data.data.ward,
+                district:data.data.district,
+                city:data.data.city,
+                shippingAdr: data.data.shippingAdr,
+                userId:data.userId
+            })
+            resolve({
+                errCode: 0,
+                message: 'OK'
+            });
+        } catch (error) {
+            // console.error(error)
+            reject(error)
+        }
+    })
+}
 let getAllAddressByUserId = (userId) =>{
     return new Promise(async(resolve,reject)=>{
         try {

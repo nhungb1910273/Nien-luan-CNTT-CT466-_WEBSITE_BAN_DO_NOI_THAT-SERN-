@@ -11,6 +11,7 @@ import multer from "multer";
 // import path from 'path';
 
 let router = express.Router();
+
 const IMAGE_PATH = './assets/images';
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
