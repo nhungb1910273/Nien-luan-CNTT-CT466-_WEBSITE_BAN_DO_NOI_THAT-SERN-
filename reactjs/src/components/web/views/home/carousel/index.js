@@ -1,7 +1,7 @@
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-
-const Carousels = (props)=>{
+import { Link } from "react-router-dom";
+const Carousels = ()=>{
     const responsive = {
         desktop: {
             breakpoint: { max: 3000, min: 1024 },
@@ -43,67 +43,55 @@ const Carousels = (props)=>{
             >
 
             <div className="carousel ms-2 mt-2">
-                <img src="http://localhost/NLCS/public/hinh/banner1.jpg" alt="" className="d-block w-100" height="170px"/>
+                <img src="http://localhost/NLCS/public/hinh/banner5.jpg" alt="" className="d-block w-100" height="170px"/>
                 <div className="header-carousel-content">
                     <h5>Bàn ăn sang trọng</h5>
-                    <a className="button" href="sanpham.php">Xem ngay</a>
+                    <Link className="button" to="/product">Xem ngay</Link>
                 </div>
             </div>
             <div className="carousel ms-2 mt-2">
                 <img src="http://localhost/NLCS/public/hinh/banner1.jpg" alt="" className="d-block w-100" height="170px"/>
                 <div className="header-carousel-content">
+                    <h5>Sofa hiện đại</h5>
+                    <Link className="button" to="/product">Xem ngay</Link>
+                </div>
+            </div>
+            <div className="carousel ms-2 mt-2">
+                <img src="http://localhost/NLCS/public/hinh/banner5.jpg" alt="" className="d-block w-100" height="170px"/>
+                <div className="header-carousel-content">
                     <h5>Bàn ăn sang trọng</h5>
-                    <a className="button" href="sanpham.php">Xem ngay</a>
+                    <Link className="button" to="/product">Xem ngay</Link>
+                </div>
+            </div>
+            <div className="carousel ms-2 mt-2">
+                <img src="http://localhost/NLCS/public/hinh/banner3.jpg" alt="" className="d-block w-100" height="170px"/>
+                <div className="header-carousel-content">
+                    <h5>Phòng ngủ hài hòa</h5>
+                    <Link className="button" to="/product">Xem ngay</Link>
                 </div>
             </div>
             <div className="carousel ms-2 mt-2">
                 <img src="http://localhost/NLCS/public/hinh/banner1.jpg" alt="" className="d-block w-100" height="170px"/>
                 <div className="header-carousel-content">
-                    <h5>Bàn ăn sang trọng</h5>
-                    <a className="button" href="sanpham.php">Xem ngay</a>
+                    <h5>Kệ sách nhỏ gọn</h5>
+                    <Link className="button" to="/product">Xem ngay</Link>
                 </div>
             </div>
             <div className="carousel ms-2 mt-2">
-                <img src="http://localhost/NLCS/public/hinh/banner1.jpg" alt="" className="d-block w-100" height="170px"/>
+                <img src="http://localhost/NLCS/public/hinh/banner2.jpg" alt="" className="d-block w-100" height="170px"/>
                 <div className="header-carousel-content">
-                    <h5>Bàn ăn sang trọng</h5>
-                    <a className="button" href="sanpham.php">Xem ngay</a>
+                    <h5>Phòng khách tối giản</h5>
+                    <Link className="button" to="/product">Xem ngay</Link>
                 </div>
             </div>
             <div className="carousel ms-2 mt-2">
-                <img src="http://localhost/NLCS/public/hinh/banner1.jpg" alt="" className="d-block w-100" height="170px"/>
+                <img src="http://localhost/NLCS/public/hinh/banner4.jpg" alt="" className="d-block w-100" height="170px"/>
                 <div className="header-carousel-content">
-                    <h5>Bàn ăn sang trọng</h5>
-                    <a className="button" href="sanpham.php">Xem ngay</a>
+                    <h5>Giá đỡ tiện lợi</h5>
+                    <Link className="button" to="/product">Xem ngay</Link>
                 </div>
             </div>
-            <div className="carousel ms-2 mt-2">
-                <img src="http://localhost/NLCS/public/hinh/banner1.jpg" alt="" className="d-block w-100" height="170px"/>
-                <div className="header-carousel-content">
-                    <h5>Bàn ăn sang trọng</h5>
-                    <a className="button" href="sanpham.php">Xem ngay</a>
-                </div>
-            </div>
-            <div className="carousel ms-2 mt-2">
-                <img src="http://localhost/NLCS/public/hinh/banner1.jpg" alt="" className="d-block w-100" height="170px"/>
-                <div className="header-carousel-content">
-                    <h5>Bàn ăn sang trọng</h5>
-                    <a className="button" href="sanpham.php">Xem ngay</a>
-                </div>
-            </div>
-            <div className="carousel ms-2 mt-2">
-                <img src="http://localhost/NLCS/public/hinh/banner1.jpg" alt="" className="d-block w-100" height="170px"/>
-                <div className="header-carousel-content">
-                    <h5>Bàn ăn sang trọng</h5>
-                    <a className="button" href="sanpham.php">Xem ngay</a>
-                </div>
-            </div><div className="carousel ms-2 mt-2">
-                <img src="http://localhost/NLCS/public/hinh/banner1.jpg" alt="" className="d-block w-100" height="170px"/>
-                <div className="header-carousel-content">
-                    <h5>Bàn ăn sang trọng</h5>
-                    <a className="button" href="sanpham.php">Xem ngay</a>
-                </div>
-            </div>
+            
         </Carousel>
       )
 }

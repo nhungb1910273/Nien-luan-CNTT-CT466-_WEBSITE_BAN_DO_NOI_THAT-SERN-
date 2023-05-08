@@ -49,7 +49,6 @@ const Order = ()=>{
                                             <div className={"text-end " + (item.status === 'processing' ? 'text-primary' : (item.status==='shipping' ? 'text-primary' : (item.status === 'delivered' ? 'text-success':'text-danger')))}>
                                                 <i class={"fa-solid " + (item.status === 'processing' ? 'fa-box-open' : (item.status==='shipping' ? 'fa-truck-fast' : (item.status === 'delivered' ? 'fa-box':'fa-triangle-exclamation')))}></i> {item.status}
                                                 <br />
-                                                <span className="text-muted">{item.deliveryDate ? item.deliveryDate :''}</span>
                                             </div>
                                         </div>
                                     
@@ -74,6 +73,9 @@ const Order = ()=>{
                                 <hr />
                                 <div className="title pb-3">Delivery</div>
                                 <AddressOrder idAdd = {item.addressId} />
+                                <b className="title pb-3">Delivery Date<span className='text-muted'>(expected)</span>: </b>
+                                <span className="text-muted">{item.deliveryDate ? moment(item.deliveryDate).format("YYYY/MM/DD") :''} </span>
+
                             </Tab.Pane>
                             </>
                         ))}

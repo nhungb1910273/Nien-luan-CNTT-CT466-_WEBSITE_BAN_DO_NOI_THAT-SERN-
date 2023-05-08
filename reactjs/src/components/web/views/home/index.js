@@ -62,25 +62,25 @@ const Home = ()=>{
                     <div className="caption_banner">
                         <span className="subtitle">Thư giãn với</span>
                         <h3>Sofa</h3>
-                        <a className="button" href="sanpham.php">Mua ngay</a>
+                        <Link className="button" to="/product">Xem ngay</Link>
                     </div>
                     <div className="overlay"></div>
                 </div>
                 <div className="col-4 img-hover-zoom img-hover-zoom--blur">
-                    <img className="img-fluid" src="https://nhaxinh.com/wp-content/uploads/2021/11/miami-01.png" alt="" />
+                    <img className="img-fluid" src="https://nhaxinh.com/wp-content/uploads/2021/10/phong-anmiami-xanh-new3.jpg" alt="" />
                     <div className="caption_banner">
-                        <span className="subtitle">Thư giãn với</span>
-                        <h3>Sofa</h3>
-                        <a className="button" href="sanpham.php">Mua ngay</a>
+                        <span className="subtitle">Thiết kết hiện đại</span>
+                        <h3>Modern Furniture</h3>
+                        <Link className="button" to="/product">Xem ngay</Link>
                     </div>
                     <div className="overlay"></div>
                 </div>
                 <div className="col-4 img-hover-zoom img-hover-zoom--blur">
-                    <img className="img-fluid" src="https://nhaxinh.com/wp-content/uploads/2021/11/miami-01.png" alt="" />
+                    <img className="img-fluid" src="https://nhaxinh.com/wp-content/uploads/2022/03/sofa-du-bai-kieu-dang-hien-dai-mau-nau-tram.jpg" alt="" />
                     <div className="caption_banner">
-                        <span className="subtitle">Thư giãn với</span>
-                        <h3>Sofa</h3>
-                        <a className="button" href="sanpham.php">Mua ngay</a>
+                        <span className="subtitle">Nội Thất Sang Trọng</span>
+                        <h3>Phong Cách Hoàng Gia</h3>
+                        <Link className="button" to="/product">Xem ngay</Link>
                     </div>
                     <div className="overlay"></div>
                 </div>

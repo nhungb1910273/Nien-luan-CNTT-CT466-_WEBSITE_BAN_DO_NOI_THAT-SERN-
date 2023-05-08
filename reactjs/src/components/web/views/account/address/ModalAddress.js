@@ -64,9 +64,10 @@ const ModalAddress = (props)=>{
         const {fullName,phoneNumber,ward,district,city,shippingAdr}=arrInput;
         const data = {fullName:fullName,phoneNumber:phoneNumber,ward:ward,district:district,city:city,shippingAdr:shippingAdr}
         if(formValid(arrInput)){
-            console.log(data);
+            
             props.createNewAddress(data);
             setEmpty(false);
+            setArrInput({});
         }else{
             setEmpty(true)
             toast.error('Input empty!', {

@@ -86,7 +86,7 @@ const AddBlog =()=>{
                                     'Your blog has been added.',
                                     'success'
                                 )
-                                // window.location.href = "/admin/list-blog"
+                                window.location.href = "/admin/list-blog"
                         }
                     }
                   })

@@ -218,8 +218,7 @@ const DetailBlog =()=>{
                         <div>
                             <h5>View Comment</h5>
                             {arrComment && arrComment.map(item => {
-                                console.log(item.blogId,id);
-                                return (item.status === 0 && item.blogId === parseInt(id) ) &&(
+                                return (item.status === 1 && item.blogId === parseInt(id) ) &&(
                                     <div class="border rounded-1 p-3 mb-3 row justify-content-between align-items-center">
                                     
                                         <div className="col-md-10">

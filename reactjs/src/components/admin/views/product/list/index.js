@@ -166,29 +166,7 @@ const ListProduct =()=> {
             setArrProducts(search);
         }
     }
-    // handleSubmit = async (event) => {
-    //     event.preventDefault();
-    //     this.setState({ loading: false })
-    //     let list = await GetProductDetails.getProductById(this.state.selectedProduct.value);
-    //     if (list) {
-    //         this.setState({ getList: list.data, isloaded: true })
-    //     }
-
-    // }
-    // const doEditProduct = async(user) => {
-    //     try {
-    //         let res = await editProductService(user);
-    //         console.log(res);
-    //         if(res && res.data.errCode===0){
-    //             setIsOpenModalEditProduct(false)
-    //             await getAllProductsFromReact()
-    //         }else{
-    //             alert(res.data.errMessage)
-    //         }
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
+   
     
     return (
         <div className='list'>
@@ -196,9 +174,6 @@ const ListProduct =()=> {
                 <div className="col-lg-5 col-md-9 col-lg-6">
                     <h3 className="mt-30 page-title">Product</h3>
                 </div>
-                {/* <div className="col-lg-5 col-md-3 col-lg-6 back-btn">
-                    <Button variant="contained" onClick={(e) => this.handleBack()}><i className="fas fa-arrow-left" /> Back</Button>
-                </div> */}
             </div>
             <ol className="breadcrumb mb-30">
                 <li className="breadcrumb-item"><a href="index.html">Dashboard</a></li>
@@ -216,11 +191,12 @@ const ListProduct =()=> {
                 <div className='form-body'>
                     
                     <div className='d-flex justify-content-between align-items-center'>
-                        <div className='d-flex'>
-                            <div style={{width:"50%"}}>
+                        <div className='d-flex align-items-center'>
+                            <div className='d-flex align-items-center'>
+                            <b className='me-2'>Category: </b>
                             <SelectCategory onSelected={handleSelectCategory}/>
                             </div>
-                            <div class="search ms-2" htmlFor="search">
+                            <div class="search ms-3" htmlFor="search">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                                 <input className="form-control" id="search" type="text" value={filterParam}
                                     onChange={(e) => handleFilter(e)} placeholder="Search name..." />

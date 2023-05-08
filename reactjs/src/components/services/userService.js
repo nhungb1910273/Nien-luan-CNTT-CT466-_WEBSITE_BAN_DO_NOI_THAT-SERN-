@@ -36,12 +36,16 @@ const authenticate = async (data, email) => {
     if (typeof window !== "undefined") {
         localStorage.setItem('id', data)
         localStorage.setItem('email', email)
-        setTimeout(
-            function () {
-                window.location.reload();
-            },
-            1000
-        );
+        if(email === 'admin@gmail.com'){
+            setTimeout(() => {
+                window.location.replace('/admin');
+              }, 1000);
+        }else{
+            setTimeout(() => {
+                // 👇️ redirects to an external URL
+                window.location.replace('/');
+              }, 1000);
+        }
     }
 };
 const isAuthenticate = () => {

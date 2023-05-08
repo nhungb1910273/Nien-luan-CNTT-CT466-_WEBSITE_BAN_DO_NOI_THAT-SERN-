@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {Nav} from 'react-bootstrap';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Route, Routes } from "react-router-dom";
 // import Header from "./Header/Navbar";
 import SideBar from "./sidebar";
-import logo from '../../assets/logo.jpg';
 import ListProduct from "./views/product/list";
 import AddProduct from "./views/product/add";
 import EditProduct from "./views/product/edit";
@@ -20,12 +19,34 @@ import DetailOrder from "./views/order/detail_order";
 import ListComment from "./views/comment/list";
 import ListFeedback from "./views/feedback/list";
 import Dashboard from "./views/dashboard";
+import { getUserByEmail, logout } from "../services/userService";
 const RootRouter =()=>{
     
     const [isHide,setIsHide]=useState(false);
 
     const handleHide = ()=>{
         setIsHide(!isHide);
+    }
+    const [username,setUsername]=useState('');
+
+    useEffect(()=>{
+        getUser();
+    },[]);
+
+    const getUser = async()=>{
+       
+        let email = localStorage.getItem('email');
+        if (email) {
+            let user = await getUserByEmail(email);
+            if (user && user.data.errCode === 0) {
+                setUsername(user.data.user.username);
+                
+            }
+        }
+    }
+    const handleLogout = async () => {
+        // event.preventDefault();
+        await logout();
     }
 
     return (
@@ -44,14 +65,12 @@ const RootRouter =()=>{
                     <Nav.Item>
                         <Dropdown>
                             <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            <img src={logo} className="rounded-circle" alt="harry potter" style={{ width: '45px',height:'45px' }}/>
-
+                            {username}
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu>
-                                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                                <Dropdown.Item onClick={handleLogout}>Log out</Dropdown.Item>
+                                
                             </Dropdown.Menu>    
                         </Dropdown>
                     </Nav.Item>

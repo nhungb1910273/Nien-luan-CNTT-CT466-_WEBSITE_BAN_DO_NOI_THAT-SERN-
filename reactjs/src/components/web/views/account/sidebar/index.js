@@ -17,9 +17,7 @@ const SideBar =()=>{
                         <li className="my-4">
                             <NavLink className={(navData) => navData.isActive ? "active" : "" } to="order" ><i class="me-2 fa-solid fa-store"></i> My Orders</NavLink>
                         </li>
-                        <li className="my-4">
-                            <NavLink className={(navData) => navData.isActive ? "active" : "" } to="users" ><i class="me-2 fa-solid fa-sliders"></i> Settings</NavLink>
-                        </li>
+                       
                     </ul>
                 </div>
             </nav>

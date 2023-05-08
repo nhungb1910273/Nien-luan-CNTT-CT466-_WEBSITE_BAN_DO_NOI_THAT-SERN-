@@ -12,6 +12,8 @@ import Swal from 'sweetalert2';
 const ListBlog =()=> {
 
     const [arrBlogs,setArrBlogs]=useState([]);
+    const [blogData,setBlogData]=useState([]);
+
     const [isloaded,setIsLoaded]=useState(false);
     const [offset, setOffset] = useState(0);
     const [perPage]=useState(10);
@@ -28,15 +30,18 @@ const ListBlog =()=> {
     const getAllBlogsFromReact = async()=>{
         setIsLoaded(false);
         const response = await getAllBlogs('ALL');
-        console.log(response)
         if(response && response.data.errCode === 0){
-            var tdata = response.data.blogs;
-            var slice = tdata.slice(offset, offset + perPage)
+            setBlogData(response.data.blogs);
+            pagination(response.data.blogs);
+            
+        }
+    }
+    const pagination = (tdata)=>{
+        var slice = tdata.slice(offset, offset + perPage)
             setPageCount(Math.ceil(tdata.length / perPage));
             // setPagProduct(tdata);
             setArrBlogs(slice);
             setIsLoaded(true);
-        }
     }
     const handlePageClick = (e) => {
         const selectedPage = e.selected;
@@ -75,16 +80,26 @@ const ListBlog =()=> {
             }
           })
     }  
-   
+    const [filterParam, setFilterParam] = useState('');
+
+    const handleFilter = async(e)=>{
+        setFilterParam(e.target.value);
+        if(e.target.value===''){
+            setArrBlogs(blogData);
+        }else{
+            const search = blogData.filter(item => (item.name.toLowerCase().includes(e.target.value.toLowerCase())|| item.writer.toLowerCase().includes(e.target.value.toLowerCase())));
+            setArrBlogs(search)
+        }
+        
+
+    }
     return (
         <div className='list'>
             <div className="row">
                 <div className="col-lg-5 col-md-9 col-lg-6">
                     <h3 className="mt-30 page-title">Blog</h3>
                 </div>
-                {/* <div className="col-lg-5 col-md-3 col-lg-6 back-btn">
-                    <Button variant="contained" onClick={(e) => this.handleBack()}><i className="fas fa-arrow-left" /> Back</Button>
-                </div> */}
+              
             </div>
             <ol className="breadcrumb mb-30">
                 <li className="breadcrumb-item"><a href="index.html">Dashboard</a></li>
@@ -95,20 +110,17 @@ const ListBlog =()=> {
                 <h4 className='text-center form-title'>List Of Blogs</h4>
                 <div className='form-body'>
                     <div className='d-flex justify-content-between align-items-center'>
-                        <div className='d-flex'>
-                            {/* <form className="d-flex" onSubmit={searchData}>
-                                <input
-                                    className='form-control'
-                                    type="text"
-                                    placeholder="Search...."
-                                    onChange={e=>setSearchInput(e.target.value)}
-                                    value={searchInput} />
-                                <button type='submit' style={{whiteSpace:"nowrap"}} className='btn btn-primary'>Search</button>
-                            </form> */}
+                            <div class="search">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input className="form-control" type="text" placeholder="Search name, writer..." 
+                                    value={filterParam}
+                                    onChange={(e) => handleFilter(e)}
+
+                                />
+                            </div>
                             <div className='mx-2'>
                                 <a href='/admin/add-blog'><button className='btn add-product'><i class="fa-solid fa-plus me-2"></i>Add</button></a>
                             </div>
-                        </div>
                     </div>
                    
                     <div className='table-responsive mt-5 mb-3'>

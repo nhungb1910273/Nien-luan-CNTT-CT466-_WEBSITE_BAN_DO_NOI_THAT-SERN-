@@ -60,9 +60,7 @@ const ModalEditComment =(props)=> {
 
     const handleChange = (e)=>{
         const {name,value}=e.target;
-        console.log(name,value);
         setArrInput({...arrInput,[name]:value})
-        console.log(arrInput)
     }
 
     useEffect (()=>{
@@ -133,32 +131,19 @@ const ModalEditComment =(props)=> {
                     <div className="">
                         <div className="row g-3">
                             <div className="col-md-8">
-                            <label className="form-label">Approved:</label>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="status" value={0} onChange={(e) => {
+                            <label className="form-label">Approved</label>
+                                <div class="form-check form-switch">
+                                    <input className="form-check-input" type="checkbox" role="switch" id="status" name="status" checked={arrInput.status} 
+                                        onChange={(e) => {
                                             handleChange({
                                             target: {
                                                 name: e.target.name,
-                                                value: e.target.value,
+                                                value: e.target.checked,
                                             },
                                             });
-                                        }} checked={arrInput.status === 0}/>
-                                    <label class="form-check-label">
-                                    Yes
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="status" value={1} onChange={(e) => {
-                                            handleChange({
-                                            target: {
-                                                name: e.target.name,
-                                                value: e.target.value,
-                                            },
-                                            });
-                                        }} checked={arrInput.status === 1 }/>
-                                    <label class="form-check-label">
-                                    No
-                                    </label>
+                                        }} 
+                                    />
+                                    <label className="form-check-label" htmlFor="status">Approved</label>
                                 </div>
                             </div>
                             

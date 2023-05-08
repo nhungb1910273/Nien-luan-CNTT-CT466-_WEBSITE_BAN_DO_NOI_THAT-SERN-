@@ -27,13 +27,16 @@ const ListFeedback = () => {
         setIsLoaded(false);
         const response = await getAllFeedbacks('ALL');
         if(response && response.data.errCode === 0){
-            var tdata = response.data.feedbacks;
-            var slice = tdata.slice(offset, offset + perPage)
-            setPageCount(Math.ceil(tdata.length / perPage));
-            // setPagColor(tdata);
-            setArrFeedback(slice);
-            setIsLoaded(true);
+            pagination(response.data.feedbacks);
+            
         }
+    }
+    const pagination = (tdata)=>{
+        var slice = tdata.slice(offset, offset + perPage)
+        setPageCount(Math.ceil(tdata.length / perPage));
+        // setPagColor(tdata);
+        setArrFeedback(slice);
+        setIsLoaded(true);
     }
     const handlePageClick = (e) => {
         const selectedPage = e.selected;

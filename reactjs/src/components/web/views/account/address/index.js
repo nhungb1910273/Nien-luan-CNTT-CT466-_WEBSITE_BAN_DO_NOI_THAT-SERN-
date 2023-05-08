@@ -14,7 +14,18 @@ const Address = ()=>{
 
 
     const handleFormAdd = ()=>{
-        setIsOpenModalAddress(true);
+        if(listAddress.length !== 5){
+            setIsOpenModalAddress(true);
+        }else{
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'You had 5 addresses',
+                showConfirmButton: false,
+                timer: 1500
+              })
+        }
+        
     }
     const toggleAddressModal = ()=>{
         setIsOpenModalAddress(!isOpenModalAddress);
@@ -123,6 +134,8 @@ const Address = ()=>{
                         isOpen = {isOpenModalAddress}
                         toggleFromParent = {toggleAddressModal}
                         createNewAddress = {createNewAddress}
+                        listAddress = {listAddress}
+
                     />
                     {isOpenModalEditAddress&&
                         <ModalEditAddress

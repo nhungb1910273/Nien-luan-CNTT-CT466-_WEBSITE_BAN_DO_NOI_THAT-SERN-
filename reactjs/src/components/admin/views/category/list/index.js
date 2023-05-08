@@ -9,6 +9,7 @@ import Pagination from '../../../../pagination';
 
 const ListCategory = () => {
     const [arrCategory,setArrCategory]=useState([]);
+    const [categoryData,setCategoryData]=useState([]);
     const [isOpenModalCategory,setIsOpenModalCategory]=useState(false);
     const [isOpenModalEditCategory,setIsOpenModalEditCategory]=useState(false);
     const [categoryEdit,setCategoryEdit]=useState({})
@@ -29,13 +30,18 @@ const ListCategory = () => {
         setIsLoaded(false);
         const response = await getAllCategories('ALL');
         if(response && response.data.errCode === 0){
-            var tdata = response.data.categories;
-            var slice = tdata.slice(offset, offset + perPage)
-            setPageCount(Math.ceil(tdata.length / perPage));
-            // setPagColor(tdata);
-            setArrCategory(slice);
-            setIsLoaded(true);
+            setCategoryData(response.data.categories);
+            pagination(response.data.categories);
+            
+            
         }
+    }
+    const pagination = (tdata)=>{
+        var slice = tdata.slice(offset, offset + perPage)
+        setPageCount(Math.ceil(tdata.length / perPage));
+        // setPagColor(tdata);
+        setArrCategory(slice);
+        setIsLoaded(true);
     }
     const handlePageClick = (e) => {
         const selectedPage = e.selected;
@@ -174,16 +180,26 @@ const ListCategory = () => {
           })
         
     }
+    const [filterParam, setFilterParam] = useState('');
 
+    const handleFilter = async(e)=>{
+        setFilterParam(e.target.value);
+        if(e.target.value ===''){
+            setArrCategory(categoryData);
+        }else{
+            const search = categoryData.filter(item => (item.name.toLowerCase().includes(e.target.value.toLowerCase())|| item.description.toLowerCase().includes(e.target.value.toLowerCase())));
+            setArrCategory(search)
+        }
+        
+
+    }
     return (
         <div className='list'>
             <div className="row">
                 <div className="col-lg-5 col-md-9 col-lg-6">
                     <h3 className="mt-30 page-title">Type Product</h3>
                 </div>
-                {/* <div className="col-lg-5 col-md-3 col-lg-6 back-btn">
-                    <Button variant="contained" onClick={(e) => this.handleBack()}><i className="fas fa-arrow-left" /> Back</Button>
-                </div> */}
+                
             </div>
             <ol className="breadcrumb mb-30">
                 <li className="breadcrumb-item"><a href="/">Dashboard</a></li>
@@ -206,22 +222,18 @@ const ListCategory = () => {
                 <h4 className='text-center form-title'>List Of Type Products</h4>
                 <div className='form-body'>
                     <div className='d-flex justify-content-between align-items-center'>
+                        <div class="search">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input className="form-control" type="text" placeholder="Search name, description..." 
+                                value={filterParam}
+                                onChange={(e) => handleFilter(e)}
+
+                            />
+                        </div>
                         <div className=''>
                             <button className='btn add-product' onClick={()=>handleAddNewCategory()}><i class="fa-solid fa-plus me-2"></i>Add</button>
                         </div>
-                        <div className='d-flex'>
-                            {/* <form className="d-flex" onSubmit={searchData}>
-                                <input
-                                    className='form-control'
-                                    type="text"
-                                    placeholder="Search...."
-                                    onChange={e=>setSearchInput(e.target.value)}
-                                    value={searchInput} 
-                                    />
-                                <button type='submit' style={{whiteSpace:"nowrap"}} className='btn btn-primary'>Search</button>
-                            </form> */}
-                            
-                        </div>
+                       
                     </div>
                     
                     <div className='table-responsive mt-5 mb-3'>

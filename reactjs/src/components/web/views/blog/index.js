@@ -63,7 +63,7 @@ const Blog =()=>{
                         <ul>
                            {arrBlogs && arrBlogs.map(blog=>{
                             // tin moi
-                            return blog.newBlog === 1 && (
+                            return blog.newBlog === 1 && blog.hidden === 0 && (
                                 <li class="news_title">
                                     <div class="img_news">
                                         <Link to={`detail/${blog.slug}/${blog.id}`} title="Nhà đẹp không thể thiếu những món decor này" rel="nofollow">

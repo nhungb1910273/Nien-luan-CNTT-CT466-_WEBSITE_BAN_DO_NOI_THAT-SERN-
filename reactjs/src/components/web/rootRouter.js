@@ -31,13 +31,6 @@ const RootRouterWeb = ()=>{
                 <Route path="search" element={<Search/> } />
                 <Route path="blog/*" element={<Blog/> } />
                 <Route path="blog/detail/:slug/:id" element={<DetailBlog /> } />
-                {/* <Route path="list-product" element={<List />} />
-                <Route path="add-product" element={<AddMainProduct />} />
-                <Route path="edit-product/:id" element={<EditProduct /> }/>
-                <Route path="list-type-product" element={<ListType />} />
-                <Route path="add-color" element={<ListColor />} /> */}
-
-                {/* <Route path="users" element={<ListUser />} /> */}
             </Routes>
             <footer>
                 <Footer />

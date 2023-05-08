@@ -7,9 +7,11 @@ import { deleteComment, getAllComments, updateComment } from '../../../../servic
 import ModalEditComment from '../edit';
 import Blog from './Blog';
 import User from './User';
+import Select from 'react-select'
 
 const ListComment = () => {
     const [arrComment,setArrComment]=useState([]);
+    const [commentData,setCommentData]=useState([]);
     const [isOpenModalEditComment,setIsOpenModalEditComment]=useState(false);
     const [commentEdit,setCommentEdit]=useState({})
     
@@ -29,13 +31,17 @@ const ListComment = () => {
         setIsLoaded(false);
         const response = await getAllComments('ALL');
         if(response && response.data.errCode === 0){
-            var tdata = response.data.comments;
-            var slice = tdata.slice(offset, offset + perPage)
-            setPageCount(Math.ceil(tdata.length / perPage));
-            // setPagColor(tdata);
-            setArrComment(slice);
-            setIsLoaded(true);
+            setCommentData(response.data.comments);
+            pagination(response.data.comments);
+           
         }
+    }
+    const pagination = (tdata)=>{
+        var slice = tdata.slice(offset, offset + perPage)
+        setPageCount(Math.ceil(tdata.length / perPage));
+        // setPagColor(tdata);
+        setArrComment(slice);
+        setIsLoaded(true);
     }
     const handlePageClick = (e) => {
         const selectedPage = e.selected;
@@ -133,16 +139,26 @@ const ListComment = () => {
           })
         
     }
-
+    const options = [
+        { value: 1, label: 'Yes' },
+        { value: 0, label: 'No' },
+      ]
+    const handleSelectChange = (name) => {
+        if(name){
+            const search = commentData.filter(item => (item.status === name.value));
+            setArrComment(search);
+            pagination(search);
+        }
+    };
+      
+      
     return (
         <div className='list'>
             <div className="row">
                 <div className="col-lg-5 col-md-9 col-lg-6">
                     <h3 className="mt-30 page-title">Comment</h3>
                 </div>
-                {/* <div className="col-lg-5 col-md-3 col-lg-6 back-btn">
-                    <Button variant="contained" onClick={(e) => this.handleBack()}><i className="fas fa-arrow-left" /> Back</Button>
-                </div> */}
+                
             </div>
             <ol className="breadcrumb mb-30">
                 <li className="breadcrumb-item"><a href="/">Dashboard</a></li>
@@ -160,21 +176,10 @@ const ListComment = () => {
            <div className='form-container mt-4'>
                 <h4 className='text-center form-title'>List Of Comments</h4>
                 <div className='form-body'>
-                    <div className='d-flex justify-content-between align-items-center'>
+                    <div className='d-flex align-items-center'>
                         
-                        <div className='d-flex'>
-                            {/* <form className="d-flex" onSubmit={searchData}>
-                                <input
-                                    className='form-control'
-                                    type="text"
-                                    placeholder="Search...."
-                                    onChange={e=>setSearchInput(e.target.value)}
-                                    value={searchInput} 
-                                    />
-                                <button type='submit' style={{whiteSpace:"nowrap"}} className='btn btn-primary'>Search</button>
-                            </form> */}
+                        <b className='me-3'>Status: </b> <Select options={options} onChange={handleSelectChange} />
                             
-                        </div>
                     </div>
                     
                     <div className='table-responsive mt-5 mb-3'>
@@ -200,7 +205,7 @@ const ListComment = () => {
                                             <User userId={item.userId} />
                                             <td className='text-center align-middle'>{item.content}</td>
                                             <td className='text-center align-middle'>
-                                                {item.status === 1 ?
+                                                {item.status === 0 ?
                                                 <p className='text-danger'>No</p>
                                                 :
                                                 <p className='text-danger'>Yes</p>

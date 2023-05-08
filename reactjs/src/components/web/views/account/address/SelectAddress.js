@@ -19,14 +19,13 @@ const SelectAddress = (props)=>{
       try {
         const response = await fetch("https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json");
         const options = await response.json();
-        console.log(options)
         setOption(options);
         setCities(options.map(({Id,Name})=>({
             value:Id,
             label:Name
         })));
       } catch (error) {
-        // ignore
+        console.log(error)
       }
     };
     getData();

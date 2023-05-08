@@ -36,7 +36,6 @@ const Header =()=> {
         }
     }
   }
-  console.log(username);
 
   useEffect(()=>{
     const getCart = async()=>{

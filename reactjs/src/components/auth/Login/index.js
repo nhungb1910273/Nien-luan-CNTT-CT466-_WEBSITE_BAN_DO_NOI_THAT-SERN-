@@ -76,7 +76,6 @@ const Login =()=>{
                     });
                 }
                 if(data.data && data.data.errCode === 0 ){
-                    await authenticate(data.data.token,data.data.user.email);
                     // setIsLoggedIn(true);
                     toast.success('Login success!', {
                         position: "top-right",
@@ -88,7 +87,7 @@ const Login =()=>{
                         progress: undefined,
                         theme: "light",
                     });
-                    window.location.href='/';
+                    await authenticate(data.data.token,data.data.user.email);
                 }
             } catch (error) {
                 toast.error(error, {
